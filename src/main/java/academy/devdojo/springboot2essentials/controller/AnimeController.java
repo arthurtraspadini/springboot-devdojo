@@ -37,7 +37,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime) {
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime) throws Exception{
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
 
