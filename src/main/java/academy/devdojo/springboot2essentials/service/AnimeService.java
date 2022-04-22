@@ -8,7 +8,6 @@ import academy.devdojo.springboot2essentials.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2essentials.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,12 +27,8 @@ import java.util.List;
 		return animeRepository.findById(id).orElseThrow(() -> new BadRequestException("Anime not found"));
 	}
 
-	@Transactional(rollbackFor = Exception.class)
-    public Anime save(AnimePostRequestBody animePostRequestBody) throws Exception {
-		Anime anime = animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
-		if (true)
-			throw new Exception("bad code");
-		return anime;
+    public Anime save(AnimePostRequestBody animePostRequestBody) {
+		return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
 	}
 
 	public void delete(long id) {
