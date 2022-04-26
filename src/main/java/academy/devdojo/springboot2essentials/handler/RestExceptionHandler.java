@@ -27,7 +27,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             BadRequestExceptionDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .title("Bad Request Excepetion. Check the documentation")
+                .title("Bad Request Exception. Check the documentation")
                 .details(bre.getMessage())
                 .developerMessage(bre.getClass().getName())
                 .build(), HttpStatus.BAD_REQUEST);
@@ -45,7 +45,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             ValidationExceptionDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .title("Bad Request Excepetion. Invalid fields")
+                .title("Bad Request Exception. Invalid fields")
                 .details("Check the field(s) error")
                 .developerMessage(exception.getClass().getName())
                 .fields(fields)
