@@ -34,21 +34,39 @@ public class SpringClient {
     //@formatter:on
     log.info(exchange);
 
-    Anime kingdom = Anime.builder().name("kingdom").build();
-    Anime kingdomSaved = new RestTemplate().postForObject("http://localhost:8080/animes",
-        kingdom,
-        Anime.class);
-    log.info(kingdomSaved);
+//    Anime kingdom = Anime.builder().name("kingdom").build();
+//    Anime kingdomSaved = new RestTemplate().postForObject("http://localhost:8080/animes",
+//        kingdom,
+//        Anime.class);
+//    log.info(kingdomSaved);
 
-    Anime samuraiChamploo =  Anime.builder().name("samurai champloo").build();
-    ResponseEntity<Anime> samuraiChamplooSaved = new RestTemplate().exchange("http://localhost:8080/animes",
+    Anime kingdomHeart =  Anime.builder().name("kingdom hearts").build();
+    ResponseEntity<Anime> kingdomHeartsSaved = new RestTemplate().exchange("http://localhost:8080/animes",
         HttpMethod.POST,
-        new HttpEntity<>(samuraiChamploo, createJsonHeader()),
+        new HttpEntity<>(kingdomHeart, createJsonHeader()),
         Anime.class);
-    log.info(samuraiChamplooSaved);
+    log.info(kingdomHeartsSaved);
+
+    Anime animeToBeUpdated = kingdomHeartsSaved.getBody();
+    animeToBeUpdated.setName("pokemon");
+
+    ResponseEntity<Void> kingdomHearsUpdated = new RestTemplate().exchange("http://localhost:8080/animes/",
+        HttpMethod.PUT,
+        new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
+        Void.class);
+    log.info(kingdomHearsUpdated);
+
+    ResponseEntity<Void> kingdomHearsToBeDeleted = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+        HttpMethod.DELETE,
+        null,
+        Void.class,
+        animeToBeUpdated.getId());
+    log.info(kingdomHearsToBeDeleted);
+
+
   }
 
-  private static HttpHeaders createJsonHeader () {
+  private static HttpHeaders createJsonHeader() {
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
     return httpHeaders;
