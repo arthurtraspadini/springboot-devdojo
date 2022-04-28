@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2essentials.repository;
 
 import academy.devdojo.springboot2essentials.domain.Anime;
+import academy.devdojo.springboot2essentials.util.AnimeCreator;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.ConstraintViolationException;
@@ -19,14 +20,10 @@ class AnimeRepositoryTest {
   @Autowired
   private AnimeRepository animeRepository;
 
-  private Anime createAnime() {
-    return Anime.builder().name("Hajime no Ippo").build();
-  }
-
   @Test
   @DisplayName("Save persists anime when successful")
   void save_PersistAnime_WhenSuccessful() {
-    Anime animeToBeSaved = createAnime();
+    Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
     Anime savedAnime = this.animeRepository.save(animeToBeSaved);
 
     Assertions.assertThat(savedAnime).isNotNull();
@@ -38,7 +35,7 @@ class AnimeRepositoryTest {
   @Test
   @DisplayName("Save updates anime when successful")
   void save_UpdateAnime_WhenSuccessful() {
-    Anime animeToBeSaved = createAnime();
+    Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
     Anime savedAnime = this.animeRepository.save(animeToBeSaved);
 
     savedAnime.setName("Overlord");
@@ -53,7 +50,7 @@ class AnimeRepositoryTest {
   @Test
   @DisplayName("Delete removes anime when successful")
   void delete_RemovesAnime_WhenSuccessful() {
-    Anime animeToBeSaved = createAnime();
+    Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
     Anime savedAnime = this.animeRepository.save(animeToBeSaved);
 
     this.animeRepository.delete(savedAnime);
@@ -67,7 +64,7 @@ class AnimeRepositoryTest {
   @Test
   @DisplayName("Find by name returns list of anime when successful")
   void findByName_ReturnsListOfAnime_WhenSuccessful() {
-    Anime animeToBeSaved = createAnime();
+    Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
     Anime savedAnime = this.animeRepository.save(animeToBeSaved);
 
     List<Anime> animes = this.animeRepository.findByName(savedAnime.getName());

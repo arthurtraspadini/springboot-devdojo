@@ -4,8 +4,6 @@ import academy.devdojo.springboot2essentials.domain.Anime;
 import academy.devdojo.springboot2essentials.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2essentials.requests.AnimePutRequestBody;
 import academy.devdojo.springboot2essentials.service.AnimeService;
-import academy.devdojo.springboot2essentials.util.DateUtil;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,18 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AnimeController {
 
-  private final DateUtil dateUtil;
   private final AnimeService animeService;
 
   @GetMapping
   public ResponseEntity<Page<Anime>> list(Pageable pageable) {
-    log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
     return ResponseEntity.ok(animeService.listAll(pageable));
   }
 
   @GetMapping(path = "/all")
   public ResponseEntity<List<Anime>> list() {
-    log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
     return ResponseEntity.ok(animeService.listAllNonPageable());
   }
   @GetMapping(path = "/{id}")
