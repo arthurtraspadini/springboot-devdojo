@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 		return animeRepository.findById(id).orElseThrow(() -> new BadRequestException("Anime not found"));
 	}
 
-    public Anime save(AnimePostRequestBody animePostRequestBody) {
+	public Anime save(AnimePostRequestBody animePostRequestBody) {
 		return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
 	}
 
